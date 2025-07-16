@@ -178,11 +178,15 @@ def loads(Jstr, dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, skip
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 def load(Jfilepath, dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, skipDuplicated=False, _isDebug_=False):
 	try:
-		with open(Jfilepath) as Jfile: Jstr = Jfile.read()
-	except Exception as e:
-		with open(Jfilepath, "rb") as Jfile: Jstr = Jfile.read()
+		try:
+			with open(Jfilepath) as Jfile: Jstr = Jfile.read()
+		except Exception as e:
+			with open(Jfilepath, "rb") as Jfile: Jstr = Jfile.read()
 
-	return loads(Jstr, dupSign_start=dupSign_start, dupSign_end=dupSign_end, ordered_dict=ordered_dict, skipDuplicated=skipDuplicated, _isDebug_=_isDebug_)
+		return loads(Jstr, dupSign_start=dupSign_start, dupSign_end=dupSign_end, ordered_dict=ordered_dict, skipDuplicated=skipDuplicated, _isDebug_=_isDebug_)
+	except Exception as e:
+		if _isDebug_: print("\x1b[31m[-] ExceptionError: {}\x1b[0m".format(e))
+		return False
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
