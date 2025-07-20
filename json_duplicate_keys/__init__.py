@@ -561,8 +561,8 @@ class JSON_DUPLICATE_KEYS:
 		Jstr = self.dumps(dupSign_start=dupSign_start, dupSign_end=dupSign_end, _isDebug_=_isDebug_, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys)
 
 		try:
-			Jfile = open(Jfilepath, "w")
-			Jfile.write(Jstr)
+			Jfile = open(Jfilepath, "wb")
+			Jfile.write(Jstr.encode("utf-8"))
 			Jfile.close()
 		except Exception as e:
 			if _isDebug_: print("\x1b[31m[-] ExceptionError: {}\x1b[0m".format(e))

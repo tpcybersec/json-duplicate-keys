@@ -397,6 +397,10 @@ print(JDKSObject.getObject())
 ---
 
 ## CHANGELOG
+#### [json-duplicate-keys v2025.y.x](https://github.com/truocphan/json-duplicate-keys/tree/2025.y.x)
+- [**Updated**] Add an exception when loading a non-existent file
+- [**Updated**] Dump Unicode characters to a file
+
 #### [json-duplicate-keys v2025.7.1](https://github.com/truocphan/json-duplicate-keys/tree/2025.7.1)
 - [**Updated**] Fixed some issues when loading JSON strings with `skipDuplicated` option
 - [**Updated**] Allow loading of JSON data in byte string format
