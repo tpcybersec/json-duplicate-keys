@@ -24,7 +24,7 @@ def normalize_key(name, dupSign_start="{{{", dupSign_end="}}}", _isDebug_=False)
 
 	if type(dupSign_end) not in [str, unicode]: dupSign_end = "}}}"
 
-	return re.sub('{dupSign_start}_\\d+_{dupSign_end}$'.format(dupSign_start=re.escape(dupSign_start), dupSign_end=re.escape(dupSign_end)), "", name)
+	return re.sub(re.escape(dupSign_start)+'_\\d+_'+re.escape(dupSign_end)+'$', "", name)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -118,13 +118,13 @@ def loads(Jstr, dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, skip
 				Jstr = re.sub(r'"([^"]*)"[\s\t\r\n]*([,\]}])'.encode(), '\x04\x05\\1\x04\x05\\2'.encode(), Jstr)
 
 
-				Jstr = re.sub(r'"([^"]+)"[\s\t\r\n]*:'.encode(), r'"\1{dupSign_start}_dupSign_{dupSign_end}":'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape).encode(), Jstr)
+				Jstr = re.sub(r'"([^"]+)"[\s\t\r\n]*:'.encode(), (r'"\1'+dupSign_start_escape+'_dupSign_'+dupSign_end_escape+'":').encode(), Jstr)
 
-				Jstr = re.sub(r'""[\s\t\r\n]*:'.encode(), '"{dupSign_start}_dupSign_{dupSign_end}":'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape).encode(), Jstr)
+				Jstr = re.sub(r'""[\s\t\r\n]*:'.encode(), ('"'+dupSign_start_escape+'_dupSign_'+dupSign_end_escape+'":').encode(), Jstr)
 
 				i = 0
-				while re.search(r'{dupSign_start}_dupSign_{dupSign_end}"[\s\t\r\n]*:'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape).encode(), Jstr):
-					Jstr = re.sub(r'{dupSign_start}_dupSign_{dupSign_end}"[\s\t\r\n]*:'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape).encode(), (dupSign_start_escape+"_"+str(i)+"_"+dupSign_end_escape+'":').encode(), Jstr, 1)
+				while re.search((dupSign_start_escape+'_dupSign_'+dupSign_end_escape+r'"[\s\t\r\n]*:').encode(), Jstr):
+					Jstr = re.sub((dupSign_start_escape+'_dupSign_'+dupSign_end_escape+r'"[\s\t\r\n]*:').encode(), (dupSign_start_escape+"_"+str(i)+"_"+dupSign_end_escape+'":').encode(), Jstr, 1)
 					i += 1
 
 				Jstr = re.sub('\x00\x01'.encode(), r'\\\\'.encode(), Jstr)
@@ -135,13 +135,13 @@ def loads(Jstr, dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, skip
 				Jstr = re.sub(r'\\"', '\x02\x03', Jstr)
 				Jstr = re.sub(r'"([^"]*)"[\s\t\r\n]*([,\]}])', '\x04\x05\\1\x04\x05\\2', Jstr)
 
-				Jstr = re.sub(r'"([^"]+)"[\s\t\r\n]*:', r'"\1{dupSign_start}_dupSign_{dupSign_end}":'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape), Jstr)
+				Jstr = re.sub(r'"([^"]+)"[\s\t\r\n]*:', r'"\1'+dupSign_start_escape+'_dupSign_'+dupSign_end_escape+'":', Jstr)
 
-				Jstr = re.sub(r'""[\s\t\r\n]*:', '"{dupSign_start}_dupSign_{dupSign_end}":'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape), Jstr)
+				Jstr = re.sub(r'""[\s\t\r\n]*:', '"'+dupSign_start_escape+'_dupSign_'+dupSign_end_escape+'":', Jstr)
 
 				i = 0
-				while re.search(r'{dupSign_start}_dupSign_{dupSign_end}"[\s\t\r\n]*:'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape), Jstr):
-					Jstr = re.sub(r'{dupSign_start}_dupSign_{dupSign_end}"[\s\t\r\n]*:'.format(dupSign_start=dupSign_start_escape, dupSign_end=dupSign_end_escape), dupSign_start_escape+"_"+str(i)+"_"+dupSign_end_escape+'":', Jstr, 1)
+				while re.search(dupSign_start_escape+'_dupSign_'+dupSign_end_escape+r'"[\s\t\r\n]*:', Jstr):
+					Jstr = re.sub(dupSign_start_escape+'_dupSign_'+dupSign_end_escape+r'"[\s\t\r\n]*:', dupSign_start_escape+"_"+str(i)+"_"+dupSign_end_escape+'":', Jstr, 1)
 					i += 1
 
 				Jstr = re.sub('\x00\x01', r'\\\\', Jstr)
@@ -496,10 +496,10 @@ class JSON_DUPLICATE_KEYS:
 		for k, v in JDKSObject.getObject().items():
 			if type(k) == str and type(name) == str:
 				if re.search(name, k):
-					newJDKSObject.set(k, v, separator="§§"+separator+"§§", parse_index="§§"+parse_index+"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
 			else:
 				if name == k:
-					newJDKSObject.set(k, v, separator="§§"+separator+"§§", parse_index="§§"+parse_index+"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
 
 		return newJDKSObject
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -518,10 +518,10 @@ class JSON_DUPLICATE_KEYS:
 		for k, v in JDKSObject.getObject().items():
 			if type(v) == str and type(value) == str:
 				if re.search(value, v):
-					newJDKSObject.set(k, v, separator="§§"+separator+"§§", parse_index="§§"+parse_index+"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
 			else:
 				if value == v:
-					newJDKSObject.set(k, v, separator="§§"+separator+"§§", parse_index="§§"+parse_index+"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
 
 		return newJDKSObject
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -548,7 +548,7 @@ class JSON_DUPLICATE_KEYS:
 
 		dupSign_end_escape_regex = re.escape(json.dumps({dupSign_end:""})[2:-6])
 
-		return re.sub('{dupSign_start}_\\d+_{dupSign_end}":'.format(dupSign_start=dupSign_start_escape_regex, dupSign_end=dupSign_end_escape_regex), '":', json.dumps(self.getObject(), skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys))
+		return re.sub(dupSign_start_escape_regex+'_\\d+_'+dupSign_end_escape_regex+'":', '":', json.dumps(self.getObject(), skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys))
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -604,7 +604,7 @@ class JSON_DUPLICATE_KEYS:
 						else:
 							for k,v in Jobj.items():
 								_Jobj = v
-								_key = "{key}{separator}{k}".format(key=key,separator=separator,k=k) if key != None else "{k}".format(k=k)
+								_key = key+separator+k if key != None else k
 
 								__convert_Jobj_to_Jflat(_Jobj, _key)
 					elif type(Jobj) == list:
@@ -613,7 +613,7 @@ class JSON_DUPLICATE_KEYS:
 						else:
 							for i,v in enumerate(Jobj):
 								_Jobj = v
-								_key = "{key}{separator}{parse_index}{i}{parse_index}".format(key=key, separator=separator, parse_index=parse_index, i=i) if key != None else "{parse_index}{i}{parse_index}".format(parse_index=parse_index, i=i)
+								_key = key+separator+parse_index+str(i)+parse_index if key != None else parse_index+str(i)+parse_index
 
 								__convert_Jobj_to_Jflat(_Jobj, _key)
 					else:
