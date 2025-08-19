@@ -1,17 +1,18 @@
-# JSON Duplicate Keys - PyPI
-Flatten/ Unflatten and Load(s)/ Dump(s) JSON File/ Object with Duplicate Keys
-
-<p align="center">
-	<a href="https://github.com/truocphan/json-duplicate-keys/releases/"><img src="https://img.shields.io/github/release/truocphan/json-duplicate-keys" height=30></a>
-	<a href="#"><img src="https://img.shields.io/github/downloads/truocphan/json-duplicate-keys/total" height=30></a>
-	<a href="#"><img src="https://img.shields.io/github/stars/truocphan/json-duplicate-keys" height=30></a>
-	<a href="#"><img src="https://img.shields.io/github/forks/truocphan/json-duplicate-keys" height=30></a>
-	<a href="https://github.com/truocphan/json-duplicate-keys/issues?q=is%3Aopen+is%3Aissue"><img src="https://img.shields.io/github/issues/truocphan/json-duplicate-keys" height=30></a>
-	<a href="https://github.com/truocphan/json-duplicate-keys/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed/truocphan/json-duplicate-keys" height=30></a>
+<div align="center">
+	<h1>JSON Duplicate Keys - PyPI</h1>
+	<i>Flatten/ Unflatten and Load(s)/ Dump(s) JSON File/ Object with Duplicate Keys</i>
+	<br><br>
+	<a href="https://github.com/tpcybersec/json-duplicate-keys/releases/"><img src="https://img.shields.io/github/release/tpcybersec/json-duplicate-keys" height=30></a>
+	<a href="#"><img src="https://img.shields.io/github/downloads/tpcybersec/json-duplicate-keys/total" height=30></a>
+	<a href="#"><img src="https://img.shields.io/github/stars/tpcybersec/json-duplicate-keys" height=30></a>
+	<a href="#"><img src="https://img.shields.io/github/forks/tpcybersec/json-duplicate-keys" height=30></a>
+	<a href="https://github.com/tpcybersec/json-duplicate-keys/issues?q=is%3Aopen+is%3Aissue"><img src="https://img.shields.io/github/issues/tpcybersec/json-duplicate-keys" height=30></a>
+	<a href="https://github.com/tpcybersec/json-duplicate-keys/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed/tpcybersec/json-duplicate-keys" height=30></a>
 	<br>
 	<a href="#"><img src="https://img.shields.io/pypi/v/json-duplicate-keys" height=30></a>
+	<a href="#"><img src="https://img.shields.io/pypi/pyversions/json-duplicate-keys" height=30></a>
 	<a href="#"><img src="https://img.shields.io/pypi/dm/json-duplicate-keys" height=30></a>
-</p>
+</div>
 
 ## Installation
 #### From PyPI:
@@ -20,10 +21,10 @@ pip install json-duplicate-keys
 ```
 #### From Source:
 ```console
-git clone https://github.com/truocphan/json-duplicate-keys.git --branch <Branch/Tag>
+git clone https://github.com/tpcybersec/json-duplicate-keys.git --branch <Branch/Tag>
 cd json-duplicate-keys
-python setup.py build
-python setup.py install
+python -m build
+python -m pip install dist/json_duplicate_keys-<version>-py3-none-any.whl
 ```
 
 ## Basic Usage
@@ -397,34 +398,34 @@ print(JDKSObject.getObject())
 ---
 
 ## CHANGELOG
-#### [json-duplicate-keys v2025.y.x](https://github.com/truocphan/json-duplicate-keys/tree/2025.y.x)
+#### [json-duplicate-keys v2025.8.19](https://github.com/tpcybersec/json-duplicate-keys/tree/2025.8.19)
 - [**Updated**] Add an exception when loading a non-existent file
 - [**Updated**] Dump Unicode characters to a file
 
-#### [json-duplicate-keys v2025.7.1](https://github.com/truocphan/json-duplicate-keys/tree/2025.7.1)
+#### [json-duplicate-keys v2025.7.1](https://github.com/tpcybersec/json-duplicate-keys/tree/2025.7.1)
 - [**Updated**] Fixed some issues when loading JSON strings with `skipDuplicated` option
 - [**Updated**] Allow loading of JSON data in byte string format
 - [**Updated**] Issue with getting and setting an empty list
 
-#### [json-duplicate-keys v2025.6.6](https://github.com/truocphan/json-duplicate-keys/tree/2025.6.6)
+#### [json-duplicate-keys v2025.6.6](https://github.com/tpcybersec/json-duplicate-keys/tree/2025.6.6)
 - [**Updated**] Added `skipDuplicated` parameter to `load` and `loads` functions to improve performance when parsing large JSON strings by skipping duplicate keys.
 
-#### [json-duplicate-keys v2024.12.12](https://github.com/truocphan/json-duplicate-keys/tree/2024.12.12)
+#### [json-duplicate-keys v2024.12.12](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.12.12)
 - **New**: _insert_ function
 
-#### [json-duplicate-keys v2024.11.28](https://github.com/truocphan/json-duplicate-keys/tree/2024.11.28)
+#### [json-duplicate-keys v2024.11.28](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.11.28)
 - **Fixed**: Add subkey name to empty dict of existing key name
 
-#### [json-duplicate-keys v2024.11.19](https://github.com/truocphan/json-duplicate-keys/tree/2024.11.19)
+#### [json-duplicate-keys v2024.11.19](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.11.19)
 - **Updated**: Allows getting (`JSON_DUPLICATE_KEYS.get`), setting (`JSON_DUPLICATE_KEYS.set`), updating (`JSON_DUPLICATE_KEYS.update`), deleting (`JSON_DUPLICATE_KEYS.delete`) JSON_DUPLICATE_KEYS objects with case-insensitive key names
 
-#### [json-duplicate-keys v2024.7.17](https://github.com/truocphan/json-duplicate-keys/tree/2024.7.17)
-- **Fixed**: issue [#3](https://github.com/truocphan/json-duplicate-keys/issues/3) break the set function when the key's value is empty. Thanks [ptth222](https://github.com/ptth222) for reporting this issue.
+#### [json-duplicate-keys v2024.7.17](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.7.17)
+- **Fixed**: issue #3 break the set function when the key's value is empty. Thanks [ptth222](https://github.com/ptth222) for reporting this issue.
 
-#### [json-duplicate-keys v2024.4.20](https://github.com/truocphan/json-duplicate-keys/tree/2024.4.20)
+#### [json-duplicate-keys v2024.4.20](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.4.20)
 - **New**: _filter_values_
 - **Updated**: _filter_keys_
 
-#### [json-duplicate-keys v2024.3.24](https://github.com/truocphan/json-duplicate-keys/tree/2024.3.24)
+#### [json-duplicate-keys v2024.3.24](https://github.com/tpcybersec/json-duplicate-keys/tree/2024.3.24)
 - **Updated**: _normalize_key_, _loads_, _get_, _set_, _update_, _delete_
 ---

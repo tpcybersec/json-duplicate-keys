@@ -12,7 +12,6 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'json-duplicate-keys'
 copyright = '2022, TP Cyber Security'
 author = 'Truoc Phan'
-release = '2025.6.6'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

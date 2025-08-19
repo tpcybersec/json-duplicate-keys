@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-json_duplicate_keys_VERSION = "2025.7.1"
-
 try:
-	unicode # Python 2
+	unicode
 except NameError:
-	unicode = str # Python 3
+	unicode = str
 
 from collections import OrderedDict
 import json, re, copy

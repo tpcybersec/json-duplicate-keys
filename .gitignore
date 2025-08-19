@@ -1,13 +1,11 @@
 *
 !/.gitignore
+!/.readthedocs.yml
 !/LICENSE
-!/MANIFEST.in
+!/pyproject.toml
 !/README.md
-!/requirements.txt
 !/SECURITY.md
-!/setup.py
 !/json_duplicate_keys
 !/json_duplicate_keys/__init__.py
-!/.readthedocs.yml
 !/docs
 !/docs/**
