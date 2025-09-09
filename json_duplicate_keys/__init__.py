@@ -362,8 +362,8 @@ class JSON_DUPLICATE_KEYS:
 		# User input data type validation
 		if type(_isDebug_) != bool: _isDebug_ = False
 
-		if type(name) not in [str, unicode]:
-			if _isDebug_: print("\x1b[31m[-] DataTypeError: the KEY name must be str or unicode, not {}\x1b[0m".format(type(name)))
+		if type(name) not in [str, unicode, type(None)]:
+			if _isDebug_: print("\x1b[31m[-] DataTypeError: the KEY name must be str, unicode or None, not {}\x1b[0m".format(type(name)))
 			return False
 
 		if type(position) != int: position = None
@@ -381,6 +381,12 @@ class JSON_DUPLICATE_KEYS:
 		if type(self.getObject()) not in [list, dict, OrderedDict]:
 			if _isDebug_: print("\x1b[31m[-] DataTypeError: the JSON object must be list, dict or OrderedDict, not {}\x1b[0m".format(type(self.getObject())))
 			return False
+		
+		if (name is None or name == "") and type(self.getObject()) == list:
+			if position is None: position = len(self.getObject())
+
+			self.getObject().insert(position, value)
+			return True
 
 		if re.search(re.escape(separator)+"$", name):
 			if _isDebug_: print("\x1b[31m[-] KeyNameInvalidError: \x1b[0m"+name)
