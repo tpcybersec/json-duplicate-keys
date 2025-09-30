@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "json-duplicate-keys"
-version = "2025.9.9"
+version = "2025.9.30"
 description = "Flatten/ Unflatten and Load(s)/ Dump(s) JSON File/ Object with Duplicate Keys"
 readme = { file = "README.md", content-type = "text/markdown" }
 license = { text = "MIT" }

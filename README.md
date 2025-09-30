@@ -410,6 +410,9 @@ print(JDKSObject.getObject())
 
 ---
 # 📝 CHANGELOG
+### [json-duplicate-keys v2025.9.30](https://github.com/TPCyberSec/json-duplicate-keys/tree/2025.9.30)
+- **Fixed**: Issues with encoding/decoding Unicode characters
+
 ### [json-duplicate-keys v2025.9.9](https://github.com/TPCyberSec/json-duplicate-keys/tree/2025.9.9)
 - **Fixed**: Inserting a value with an `empty` or `null` name
 
