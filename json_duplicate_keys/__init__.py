@@ -292,14 +292,17 @@ class JSON_DUPLICATE_KEYS:
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # set # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-	# set(name: str|unicode, value: any, case_insensitive: bool, separator: str||unicode, parse_index: str||unicode, dupSign_start: str||unicode, dupSign_end: str||unicode, ordered_dict: bool, _isDebug_: bool) -> bool
-	def set(self, name, value, case_insensitive=False, separator="||", parse_index="$", dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, _isDebug_=False):
+	# set(name: str|unicode, value: any, case_insensitive: bool, separator: str||unicode, parse_index: str||unicode, dupSign_start: str||unicode, dupSign_end: str||unicode, _isDebug_: bool) -> bool
+	def set(self, name, value, case_insensitive=False, separator="||", parse_index="$", dupSign_start="{{{", dupSign_end="}}}", _isDebug_=False):
 		# User input data type validation
 		if type(_isDebug_) is not bool: _isDebug_ = False
 
 		if type(name) not in [str, unicode]:
 			if _isDebug_:  print("\x1b[31m[-] DataTypeError: the KEY name must be str or unicode, not {}\x1b[0m".format(type(name)))
 			return False
+
+		if type(value) == JSON_DUPLICATE_KEYS:
+			value = value.getObject()
 
 		if type(case_insensitive) is not bool: case_insensitive = False
 
@@ -310,8 +313,6 @@ class JSON_DUPLICATE_KEYS:
 		if type(dupSign_start) not in [str, unicode]: dupSign_start = "{{{"
 
 		if type(dupSign_end) not in [str, unicode]:  dupSign_end = "}}}"
-
-		if type(ordered_dict) is not bool: ordered_dict = False
 
 		if type(self.getObject()) not in [list, dict, OrderedDict]:
 			if _isDebug_: print("\x1b[31m[-] DataTypeError: the JSON object must be list, dict or OrderedDict, not {}\x1b[0m".format(type(self.getObject())))
@@ -396,6 +397,9 @@ class JSON_DUPLICATE_KEYS:
 			if _isDebug_: print("\x1b[31m[-] DataTypeError: the KEY name must be str, unicode or None, not {}\x1b[0m".format(type(name)))
 			return False
 
+		if type(value) == JSON_DUPLICATE_KEYS:
+			value = value.getObject()
+
 		if type(position) is not int: position = None
 
 		if type(case_insensitive) is not bool: case_insensitive = False
@@ -439,15 +443,18 @@ class JSON_DUPLICATE_KEYS:
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # update # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-	# update(name: str|unicode, value: any, case_insensitive: bool, allow_new_key: bool, separator: str||unicode, parse_index: str||unicode, dupSign_start: str||unicode, dupSign_end: str||unicode, ordered_dict: bool, _isDebug_: bool) -> bool
-	def update(self, name, value, case_insensitive=False, allow_new_key=False, separator="||", parse_index="$", dupSign_start="{{{", dupSign_end="}}}", ordered_dict=False, _isDebug_=False):
+	# update(name: str|unicode, value: any, case_insensitive: bool, allow_new_key: bool, separator: str||unicode, parse_index: str||unicode, dupSign_start: str||unicode, dupSign_end: str||unicode, _isDebug_: bool) -> bool
+	def update(self, name, value, case_insensitive=False, allow_new_key=False, separator="||", parse_index="$", dupSign_start="{{{", dupSign_end="}}}", _isDebug_=False):
 		# User input data type validation
 		if type(_isDebug_) is not bool: _isDebug_ = False
 
 		if type(name) not in [str, unicode]:
 			if _isDebug_: print("\x1b[31m[-] DataTypeError: the KEY name must be str or unicode, not {}\x1b[0m".format(type(name)))
 			return False
-		
+
+		if type(value) == JSON_DUPLICATE_KEYS:
+			value = value.getObject()
+
 		if type(case_insensitive) is not bool: case_insensitive = False
 
 		if type(allow_new_key) is not bool: allow_new_key = False
@@ -459,8 +466,6 @@ class JSON_DUPLICATE_KEYS:
 		if type(dupSign_start) not in [str, unicode]: dupSign_start = "{{{"
 
 		if type(dupSign_end) not in [str, unicode]: dupSign_end = "}}}"
-
-		if type(ordered_dict) is not bool: ordered_dict = False
 
 		_debug_ = _isDebug_
 		if allow_new_key: _debug_ = False
@@ -488,7 +493,7 @@ class JSON_DUPLICATE_KEYS:
 			except Exception as e:
 				if _isDebug_: print("\x1b[31m[-] ExceptionError: {}\x1b[0m".format(e))
 		elif allow_new_key:
-			return self.set(name, value, case_insensitive=case_insensitive, separator=separator, parse_index=parse_index, dupSign_start=dupSign_start, dupSign_end=dupSign_end, ordered_dict=ordered_dict, _isDebug_=_isDebug_)
+			return self.set(name, value, case_insensitive=case_insensitive, separator=separator, parse_index=parse_index, dupSign_start=dupSign_start, dupSign_end=dupSign_end, _isDebug_=_isDebug_)
 		return False
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -556,10 +561,10 @@ class JSON_DUPLICATE_KEYS:
 		for k, v in JDKSObject.getObject().items():
 			if type(k) == str and type(name) == str:
 				if re.search(name, k):
-					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§")
 			else:
 				if name == k:
-					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§")
 
 		return newJDKSObject
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -578,10 +583,10 @@ class JSON_DUPLICATE_KEYS:
 		for k, v in JDKSObject.getObject().items():
 			if type(v) == str and type(value) == str:
 				if re.search(value, v):
-					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§")
 			else:
 				if value == v:
-					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§", ordered_dict=ordered_dict)
+					newJDKSObject.set(k, v, separator=u"§§"+separator+u"§§", parse_index=u"§§"+parse_index+u"§§")
 
 		return newJDKSObject
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
