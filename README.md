@@ -125,7 +125,7 @@ print(JDKSObject.get("snapshot||author"))
 ```
 
 ---
-### JSON_DUPLICATE_KEYS.set(`name`, `value`, `case_insensitive`=False, `separator`="||", `parse_index`="$", `dupSign_start`="{{{", `dupSign_end`="}}}", `ordered_dict`=False, `_isDebug_`=False)
+### JSON_DUPLICATE_KEYS.set(`name`, `value`, `case_insensitive`=False, `separator`="||", `parse_index`="$", `dupSign_start`="{{{", `dupSign_end`="}}}", `_isDebug_`=False)
 _Set a new `name` and `value` for the JSON object_
 - `name`: new key name for the JSON object. Supported flat key name format
 - `value`: value for key `name`
@@ -134,7 +134,6 @@ _Set a new `name` and `value` for the JSON object_
 - `parse_index`: Symbol for index parsing (default: `$`)
 - `dupSign_start`: Start symbol for marking duplicates (default: `{{{`)
 - `dupSign_end`: End symbol for marking duplicates (default: `}}}`)
-- `ordered_dict`: preserves the order in which the Keys are inserted
 - `_isDebug_`: Show/Hide debug error messages
 ```python
 import json_duplicate_keys as jdks
@@ -210,7 +209,7 @@ print(JDKSObject.getObject())
 ```
 
 ---
-### JSON_DUPLICATE_KEYS.update(`name`, `value`, `case_insensitive`=False, `allow_new_key`=False, `separator`="||", `parse_index`="$", `dupSign_start`="{{{", `dupSign_end`="}}}", `ordered_dict`=False, `_isDebug_`=False)
+### JSON_DUPLICATE_KEYS.update(`name`, `value`, `case_insensitive`=False, `allow_new_key`=False, `separator`="||", `parse_index`="$", `dupSign_start`="{{{", `dupSign_end`="}}}", `_isDebug_`=False)
 _Update new `value` for existing `name` or Set a new `name` in the JSON object_
 - `name`: the key name of the JSON object. Supported flatten key name format
 - `value`: new value for key `name`
@@ -220,7 +219,6 @@ _Update new `value` for existing `name` or Set a new `name` in the JSON object_
 - `parse_index`: Symbol for index parsing (default: `$`)
 - `dupSign_start`: Start symbol for marking duplicates (default: `{{{`)
 - `dupSign_end`: End symbol for marking duplicates (default: `}}}`)
-- `ordered_dict`: preserves the order in which the Keys are inserted
 - `_isDebug_`: Show/ Hide debug error messages
 ```python
 import json_duplicate_keys as jdks
@@ -410,6 +408,9 @@ print(JDKSObject.getObject())
 
 ---
 # 📝 CHANGELOG
+### [json-duplicate-keys v2026.5.18](https://github.com/TPCyberSec/json-duplicate-keys/tree/2026.5.18)
+- **Fixed**: Issue when setting/inserting/updating values in the JSON_DUPLICATE_KEYS object
+
 ### [json-duplicate-keys v2025.9.30](https://github.com/TPCyberSec/json-duplicate-keys/tree/2025.9.30)
 - **Fixed**: Issues with encoding/decoding Unicode characters
 
